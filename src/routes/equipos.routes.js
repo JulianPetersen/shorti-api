@@ -1,17 +1,18 @@
 import {Router} from 'express'
+import upload from '../middlewares/multer'
 
 const router = Router();
 import * as equiposCtrl from '../controllers/equipo.controller'
 import { authJwt } from '../middlewares';
 
-router.post('/', [authJwt.verifyToken] ,equiposCtrl.createEquipo)
+router.post('/', [authJwt.verifyToken, authJwt.isAdmin],upload.single('imgUrl') ,equiposCtrl.createEquipo)
 
 router.get('/',[authJwt.verifyToken] , equiposCtrl.getEquipos)
 
-// router.get('/:productId', productsCtrl.getProductById)
+router.get('/:equipoId', equiposCtrl.getEquipoById)
 
-// router.put('/:productId',authJwt.verifyToken ,productsCtrl.updateProductsById)
+router.put('/:equipoId',[authJwt.verifyToken, authJwt.isAdmin] ,equiposCtrl.updateEquipo)
 
-// router.delete('/:producId',[authJwt.verifyToken, authJwt.isModerator] ,productsCtrl.deleteProductById)
+router.delete('/:equipoId',[authJwt.verifyToken, authJwt.isAdmin] ,equiposCtrl.deleteEquipo)
 
 export default router;
