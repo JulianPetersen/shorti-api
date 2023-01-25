@@ -1,12 +1,8 @@
 import {Schema,model} from 'mongoose'
 import appConfig from '../config';
 
-const equipoSchema = new Schema({
+const ligaSchema = new Schema({
     name:String,
-    liga:{
-        ref: "Liga",
-        type: Schema.Types.ObjectId
-    },
     imgUrl:String,
 },
 {
@@ -14,11 +10,9 @@ const equipoSchema = new Schema({
     versionKey:false
 })
 
-equipoSchema.methods.setImgUrl = function setImgUrl (filename){
+ligaSchema.methods.setImgUrl = function setImgUrl (filename){
     const {host, port} = appConfig
     this.imgUrl = `${host}:${port}/public/${filename}`
 }
 
-
-
-export default model('Equipo', equipoSchema)
+export default model('Liga', ligaSchema)

@@ -10,6 +10,7 @@ import productsRoutes from './routes/products.routes'
 import authRoutes from './routes/auth.routes'
 import userRoutes from './routes/user.routes'
 import equiposRoutes from './routes/equipos.routes'
+import ligasRoutes from './routes/ligas.routes'
 
 const app = express();
 createRoles();
@@ -36,6 +37,7 @@ app.use('/api/products',productsRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/equipos', equiposRoutes)
+app.use('/api/ligas', ligasRoutes)
 
 
 export default app

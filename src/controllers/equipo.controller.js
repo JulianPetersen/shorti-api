@@ -18,12 +18,14 @@ export const createEquipo = async (req, res) => {
 }
 
 export const getEquipos = async (req, res) => {
-    const equipos = await Equipo.find();
+    const equipos = await Equipo.find()
+    .populate("liga")
     res.json(equipos);
 }
 
 export const getEquipoById = async (req,res) => {
     const equipo = await Equipo.findById(req.params.equipoId)
+    .populate("liga")
     res.status(200).json(equipo);
 }
 
