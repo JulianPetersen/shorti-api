@@ -2,8 +2,6 @@ import Equipo from '../models/Equipos'
 
 export const createEquipo = async (req, res) => {
     try {
-
-     
         const { name, liga, imgUrl } = req.body
         const newEquipo = new Equipo({ name, liga, imgUrl })
         if (req.file) {
