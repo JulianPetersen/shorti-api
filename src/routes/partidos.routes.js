@@ -4,7 +4,7 @@ const router = Router();
 
 import * as partidosCtrl from '../controllers/partido.controller'
 import { authJwt } from '../middlewares';
-import partidos from '../models/partidos';
+
 
 router.post('/', [authJwt.verifyToken, authJwt.isAdmin],partidosCtrl.createPartido);
 
