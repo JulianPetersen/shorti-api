@@ -3,6 +3,7 @@ import morgan from 'morgan';
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose'
 import {createRoles} from './libs/initialSetup'
+import cors from 'cors';
 
 
 //routes
@@ -19,7 +20,7 @@ mongoose.set('strictQuery', true);
 
 app.use(express.json());
 app.use(morgan('dev'));
-
+app.use(cors())
 
 //statics files
 app.use('/public', express.static(`${__dirname}/storage/imgs`))

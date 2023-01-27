@@ -47,5 +47,5 @@ export const signIn = async (req,res) => {
         expiresIn: 86400
     })
     console.log(userFound)
-    res.json({token})
+    res.json({token:token,userId:userFound._id})
 }
