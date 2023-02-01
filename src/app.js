@@ -42,4 +42,4 @@ app.use('/api/ligas', ligasRoutes)
 app.use('/api/partidos', partidosRoutes)
 
 
-export default app
+export default app 

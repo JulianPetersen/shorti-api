@@ -12,7 +12,7 @@ router.get('/',[authJwt.verifyToken] , ligasCtrl.getLigas)
 
 router.get('/:ligaId', ligasCtrl.getLigasById)
 
-router.put('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin] ,ligasCtrl.updateLiga)
+router.put('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin], ligasCtrl.updateLiga)
 
 router.delete('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin] ,ligasCtrl.deleteLiga)
 

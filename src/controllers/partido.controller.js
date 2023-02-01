@@ -2,8 +2,8 @@ import Partido from '../models/partidos'
 
 export const createPartido = async (req, res) => {
     try {
-        const { fecha, horario, equipo1,equipo2,resultado } = req.body
-        const newPartido = new Partido({ fecha, horario, equipo1,equipo2,resultado })
+        const { fecha, horario, equipo1,equipo2,resultado, estado } = req.body
+        const newPartido = new Partido({ fecha, horario, equipo1,equipo2,resultado, estado })
         const partidoSaved = await newPartido.save();
         res.status(201).json(partidoSaved);
     } catch (error) {
@@ -29,10 +29,10 @@ export const updatePartido = async (req,res) => {
     const updatedPartido =  await Partido.findByIdAndUpdate(req.params.partidoId, req.body,{
         new:true
     })
-    res.status(204).json(updatedPartido);
+    res.status(204).json(updatedPartido);  
 }
 
 export const deletePartido = async (req,res) => {
     const deletedPartido =  await Partido.findByIdAndDelete(req.params.partidoId)
-    res.status(204).json()
+    res.status(204).json() 
 }

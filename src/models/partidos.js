@@ -11,7 +11,8 @@ const partidoSchema = new Schema({
         ref: "Equipo",
         type: Schema.Types.ObjectId
     },
-    resultado: Object
+    resultado: Object,
+    estado:String
 },
 {
     timestamps:true,

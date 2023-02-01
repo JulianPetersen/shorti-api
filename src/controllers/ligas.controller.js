@@ -17,12 +17,14 @@ export const createLigas = async (req, res) => {
 }
 
 export const getLigas = async (req, res) => {
-    const ligas = await Ligas.find();
+    const ligas = await Ligas.find()
+    .populate({path:'equipos', model:'Equipo'})
     res.json(ligas);
 }
 
 export const getLigasById = async (req,res) => {
     const liga = await Ligas.findById(req.params.ligaId)
+    .populate({path:'equipos', model:'Equipo'})
     res.status(200).json(liga);
 }
 

@@ -11,6 +11,8 @@ router.get('/',[authJwt.verifyToken] , equiposCtrl.getEquipos)
 
 router.get('/:equipoId', equiposCtrl.getEquipoById)
 
+router.get('/getEquipoByLiga/:ligaId',[authJwt.verifyToken], equiposCtrl.getEquiposByLigas)
+
 router.put('/:equipoId',[authJwt.verifyToken, authJwt.isAdmin] ,equiposCtrl.updateEquipo)
 
 router.delete('/:equipoId',[authJwt.verifyToken, authJwt.isAdmin] ,equiposCtrl.deleteEquipo)
