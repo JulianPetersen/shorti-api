@@ -12,8 +12,10 @@ router.get('/',[authJwt.verifyToken] , partidosCtrl.getPartidos)
 
 router.get('/:partidoId', partidosCtrl.getPartidoById)
 
-router.put('/:partidoId',[authJwt.verifyToken, authJwt.isAdmin] ,partidosCtrl.updatePartido)
+router.get('/getPartidosByUser/:userId', partidosCtrl.getPartidosByUser)
+
+router.put('/:partidoId',[authJwt.verifyToken] ,partidosCtrl.updatePartido)
 
 router.delete('/:partidoId',[authJwt.verifyToken, authJwt.isAdmin] ,partidosCtrl.deletePartido)
 
-export default router;
+export default router; 

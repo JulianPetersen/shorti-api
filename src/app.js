@@ -13,6 +13,9 @@ import userRoutes from './routes/user.routes'
 import equiposRoutes from './routes/equipos.routes'
 import ligasRoutes from './routes/ligas.routes'
 import partidosRoutes from './routes/partidos.routes'
+import pronosticosRoutes from './routes/pronosticos.routes'
+import infoUserRoutes from './routes/infousuario.routes'
+import premioRoutes from './routes/premio.routes'
 
 const app = express();
 createRoles();
@@ -40,6 +43,9 @@ app.use('/api/users',userRoutes);
 app.use('/api/equipos', equiposRoutes)
 app.use('/api/ligas', ligasRoutes)
 app.use('/api/partidos', partidosRoutes)
+app.use('/api/pronosticos', pronosticosRoutes)
+app.use('/api/infouser', infoUserRoutes)
+app.use('/api/premio', premioRoutes)
 
 
 export default app 

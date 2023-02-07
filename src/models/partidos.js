@@ -12,7 +12,11 @@ const partidoSchema = new Schema({
         type: Schema.Types.ObjectId
     },
     resultado: Object,
-    estado:String
+    estado:String,
+    usuarios:[{
+        ref: "User",
+        type: Schema.Types.ObjectId
+    }]
 },
 {
     timestamps:true,
