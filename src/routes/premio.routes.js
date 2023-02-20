@@ -9,10 +9,10 @@ router.post('/', [authJwt.verifyToken, authJwt.isAdmin],premioCtrl.createPremio)
 
 router.get('/',[authJwt.verifyToken] , premioCtrl.getPremios)
 
-// router.get('/:ligaId', ligasCtrl.getLigasById)
 
-router.put('/:premioId',[authJwt.verifyToken,], premioCtrl.updatePremio)
+router.put('/',[authJwt.verifyToken,], premioCtrl.addParticipante)
 
-// router.delete('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin] ,ligasCtrl.deleteLiga)
+router.put('/updateGanador', [authJwt.verifyToken], premioCtrl.updateGanador)
+
 
 export default router;

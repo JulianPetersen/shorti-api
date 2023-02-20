@@ -1,9 +1,11 @@
 import Premio from '../models/premio'
+import InfoUsuario from '../models/infoUsuario'
+import SorteoRealizado from '../models/sorteoRealizado'
 
 export const createPremio = async (req, res) => {
     try {
-        const { cantidad, fecha } = req.body
-        const newPremio = new Premio({ cantidad, fecha })
+        const { cantidad, fecha, participantes,cantParticipaciones } = req.body
+        const newPremio = new Premio({ cantidad, fecha,participantes,cantParticipaciones })
         const premioSaved = await newPremio.save();
         res.status(201).json(premioSaved);
     } catch (error) {
@@ -12,14 +14,37 @@ export const createPremio = async (req, res) => {
 }
 
 export const getPremios = async (req, res) => {
-    const premio = await Premio.find()
+    const premio = await Premio.find().sort({$natural: -1}).limit(1)
     res.json(premio);
 }
 
-export const updatePremio = async (req,res) => {
-    const updatedPremio =  await Premio.findByIdAndUpdate(req.params.premioId, req.body,{
+export const addParticipante = async (req,res) => {
+    const premio = await Premio.find().sort({$natural: -1}).limit(1)
+    for(let i = 0; i < req.body.cantParticipaciones; i++){
+        premio[0].participantes.push(req.body.participantes)
+    }
+    premio[0].save();
+    //obtengo la informacion del usuario
+    const infouser = await InfoUsuario.findOne({usuario:req.body.participantes})
+    //resto los puntos por la cantidad de participaciones.
+    const infouserUpdated = await InfoUsuario.findByIdAndUpdate(infouser._id, {puntosObtenidos: infouser.puntosObtenidos - req.body.cantParticipaciones,dineroObtenido: premio[0].cantidad})
+    const updatedPremio =  await Premio.findOneAndUpdate({_id:premio[0]._id},{cantParticipaciones: premio[0].cantParticipaciones + req.body.cantParticipaciones},{
         new:true
     })
-    res.status(200).json(updatedPremio);
+    res.status(200).json(updatedPremio); 
+}
+
+export const updateGanador = async (req,res) => {
+    const updatePremio = await Premio.findByIdAndUpdate(req.body.sorteoId,{
+        ganador:req.body.ganador
+    },{new:true})
+    await SorteoRealizado.create(
+        {
+            cantidad:updatePremio.cantidad, 
+            fecha:updatePremio.fecha, 
+            cantParticipaciones:updatePremio.cantParticipaciones,
+            ganador:updatePremio.ganador
+        })
+    res.status(200).json(updatePremio)
 }
 

@@ -10,7 +10,7 @@ router.post('/', [authJwt.verifyToken, authJwt.isAdmin],partidosCtrl.createParti
 
 router.get('/',[authJwt.verifyToken] , partidosCtrl.getPartidos)
 
-router.get('/:partidoId', partidosCtrl.getPartidoById)
+router.get('/:partidoId',[authJwt.verifyToken], partidosCtrl.getPartidoById)
 
 router.get('/getPartidosByUser/:userId', partidosCtrl.getPartidosByUser)
 

@@ -4,6 +4,7 @@ import User from "../models/User"
 import Role from '../models/Role'
 
 export const verifyToken = async (req,res,next)=> {
+    
     try {
         const token =  req.headers["x-access-token"]
    
@@ -11,6 +12,8 @@ export const verifyToken = async (req,res,next)=> {
 
     const decoded = jwt.verify(token, config.SECRET)
     req.userId = decoded.id
+ 
+    console.log(req.userId)
 
     const  user = await User.findById(req.userId, {password:0});
     if(!user) return res.status(404).json({message:'No existe el usuario'})

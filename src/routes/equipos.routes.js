@@ -9,7 +9,7 @@ router.post('/', [authJwt.verifyToken, authJwt.isAdmin],upload.single('imgUrl') 
 
 router.get('/',[authJwt.verifyToken] , equiposCtrl.getEquipos)
 
-router.get('/:equipoId', equiposCtrl.getEquipoById)
+router.get('/:equipoId', [authJwt.verifyToken], equiposCtrl.getEquipoById)
 
 router.get('/getEquipoByLiga/:ligaId',[authJwt.verifyToken], equiposCtrl.getEquiposByLigas)
 

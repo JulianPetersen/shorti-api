@@ -10,9 +10,9 @@ router.post('/', [authJwt.verifyToken] ,pronosticosCtrl.createPronostico);
 
 router.get('/',[authJwt.verifyToken] , pronosticosCtrl.getPronosticos)
 
-router.get('/:pronosticoId', pronosticosCtrl.getPronosticoById)
+router.get('/:pronosticoId',[authJwt.verifyToken], pronosticosCtrl.getPronosticoById)
 
-router.get('/getPronosticoByUser/:userId', pronosticosCtrl.getPronosticoByUser)
+router.get('/getPronosticoByUser/:userId',[authJwt.verifyToken], pronosticosCtrl.getPronosticoByUser)
 
 router.put('/:pronosticoId',[authJwt.verifyToken] ,pronosticosCtrl.updatePronostico)
 

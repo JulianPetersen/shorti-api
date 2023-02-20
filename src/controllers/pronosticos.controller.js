@@ -44,6 +44,7 @@ export const updatePronostico = async (req,res) => {
 
 export const getPronosticoByUser = async (req, res) => {
     const pronosticos = await Pronostico.find({usuario: req.params.userId})
+    .limit(50)
     .populate('partido')
     .populate({
         path: 'partido',

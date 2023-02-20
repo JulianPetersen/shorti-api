@@ -6,6 +6,10 @@ const infousuarioSchema = new Schema({
         type: Schema.Types.ObjectId
     },
     puntosObtenidos: Number,
+    dineroObtenido: {
+        type:Number,
+        default:0
+    }
 },
 {
     timestamps:true,
