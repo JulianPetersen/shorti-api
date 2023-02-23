@@ -17,6 +17,7 @@ import pronosticosRoutes from './routes/pronosticos.routes'
 import infoUserRoutes from './routes/infousuario.routes'
 import premioRoutes from './routes/premio.routes'
 import sorteoRealizadoRoutes from './routes/sorteoRealizado.routes'
+import retirosRoutes from './routes/retiros.routes'
 
 const app = express();
 createRoles();
@@ -48,5 +49,6 @@ app.use('/api/pronosticos', pronosticosRoutes)
 app.use('/api/infouser', infoUserRoutes)
 app.use('/api/premio', premioRoutes)
 app.use('/api/sorteoRealizado', sorteoRealizadoRoutes)
+app.use('/api/retiros', retirosRoutes)
 
-export default app 
+export default app  

@@ -26,6 +26,7 @@ export const getPronosticoById = async (req,res) => {
     const pronostico = await Pronostico.findById(req.params.pronosticoId)
     .populate('partido')
     .populate('usuario')
+    
     res.status(200).json(pronostico);
 }
 
@@ -44,6 +45,7 @@ export const updatePronostico = async (req,res) => {
 
 export const getPronosticoByUser = async (req, res) => {
     const pronosticos = await Pronostico.find({usuario: req.params.userId})
+    .sort({createdAt: -1})
     .limit(50)
     .populate('partido')
     .populate({

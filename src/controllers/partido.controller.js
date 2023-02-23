@@ -32,6 +32,20 @@ export const updatePartido = async (req,res) => {
     res.status(204).json(updatedPartido);  
 }
 
+export const getLastTenPartidos = async (req,res) => {
+    try {
+        const partidos = await Partido.find()
+        .limit(10)
+        .sort({createdAt: -1})
+        .populate('equipo1')
+        .populate('equipo2')
+        res.status(200).json(partidos)
+    } catch (error) {
+        res.status(401).json({message:error})
+    }
+    
+}
+
 export const deletePartido = async (req,res) => {
     const deletedPartido =  await Partido.findByIdAndDelete(req.params.partidoId)
     res.status(204).json() 
