@@ -8,9 +8,9 @@ import { authJwt } from '../middlewares';
 
 router.post('/', [authJwt.verifyToken, authJwt.isAdmin], upload.single('imgUrl') ,ligasCtrl.createLigas);
 
-router.get('/',[authJwt.verifyToken] , ligasCtrl.getLigas)
+router.get('/',[authJwt.verifyToken], ligasCtrl.getLigas)
 
-router.get('/:ligaId', ligasCtrl.getLigasById)
+router.get('/:ligaId',[authJwt.verifyToken], ligasCtrl.getLigasById)
 
 router.put('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin], ligasCtrl.updateLiga)
 
