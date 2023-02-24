@@ -1,5 +1,7 @@
+require ('dotenv').config();
+
 export default {
     SECRET: 'shorti-api',
-    host: 'http://localhost',
-    port: '4000'
+    host: process.env.APP_HOST,
+    port: process.env.APP_PORT
 }

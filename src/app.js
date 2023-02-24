@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose'
 import {createRoles} from './libs/initialSetup'
 import cors from 'cors';
+require ('dotenv').config();
 
 
 //routes
@@ -29,7 +30,7 @@ app.use(cors())
 
 //statics files
 app.use('/public', express.static(`${__dirname}/storage/imgs`))
-console.log(`${__dirname}/storage/imgs`)
+
 
 app.get('/', (req,res)=> {
     res.json({
