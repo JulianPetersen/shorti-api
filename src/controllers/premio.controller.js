@@ -27,7 +27,7 @@ export const addParticipante = async (req,res) => {
     //obtengo la informacion del usuario
     const infouser = await InfoUsuario.findOne({usuario:req.body.participantes})
     //resto los puntos por la cantidad de participaciones.
-    const infouserUpdated = await InfoUsuario.findByIdAndUpdate(infouser._id, {puntosObtenidos: infouser.puntosObtenidos - req.body.cantParticipaciones,dineroObtenido: premio[0].cantidad})
+    const infouserUpdated = await InfoUsuario.findByIdAndUpdate(infouser._id, {puntosObtenidos: infouser.puntosObtenidos - req.body.cantParticipaciones})
     const updatedPremio =  await Premio.findOneAndUpdate({_id:premio[0]._id},{cantParticipaciones: premio[0].cantParticipaciones + req.body.cantParticipaciones},{
         new:true
     })
@@ -38,6 +38,9 @@ export const updateGanador = async (req,res) => {
     const updatePremio = await Premio.findByIdAndUpdate(req.body.sorteoId,{
         ganador:req.body.ganador
     },{new:true})
+    const infoUser = await InfoUsuario.findOne({usuario:req.body.ganador}) 
+    console.log(infoUser)
+    await InfoUsuario.findByIdAndUpdate(infoUser._id, {dineroObtenido: infoUser.dineroObtenido + updatePremio.cantidad})
     await SorteoRealizado.create(
         {
             cantidad:updatePremio.cantidad, 
@@ -45,6 +48,6 @@ export const updateGanador = async (req,res) => {
             cantParticipaciones:updatePremio.cantParticipaciones,
             ganador:updatePremio.ganador
         })
-    res.status(200).json(updatePremio)
+    res.status(200).json(updatePremio) 
 }
 

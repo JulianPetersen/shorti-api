@@ -34,7 +34,7 @@ export const updatePartido = async (req,res) => {
 
 export const getLastTenPartidos = async (req,res) => {
     try {
-        const partidos = await Partido.find()
+        const partidos = await Partido.find({estado:'Finalizado'})
         .limit(10)
         .sort({createdAt: -1})
         .populate('equipo1')
