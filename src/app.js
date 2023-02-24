@@ -1,10 +1,10 @@
+require ('dotenv').config();
 import express from 'express'
 import morgan from 'morgan';
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose'
 import {createRoles} from './libs/initialSetup'
 import cors from 'cors';
-require ('dotenv').config();
 
 
 //routes
@@ -30,6 +30,16 @@ app.use(cors())
 
 //statics files
 app.use('/public', express.static(`${__dirname}/storage/imgs`))
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
+
 
 
 app.get('/', (req,res)=> {
