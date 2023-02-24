@@ -31,22 +31,12 @@ app.use(cors())
 //statics files
 app.use('/public', express.static(`${__dirname}/storage/imgs`))
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
-
-
-
 
 app.get('/', (req,res)=> {
     res.json({
         author:'Frigg',
         description:"API made by frigg, for shorti App.",
-        version:"1.0.1"
+        version:"1.0.2"
     })
 })
 

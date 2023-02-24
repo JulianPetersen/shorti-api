@@ -34,6 +34,9 @@ export const addParticipante = async (req,res) => {
     res.status(200).json(updatedPremio); 
 }
 
+
+
+
 export const updateGanador = async (req,res) => {
     const updatePremio = await Premio.findByIdAndUpdate(req.body.sorteoId,{
         ganador:req.body.ganador

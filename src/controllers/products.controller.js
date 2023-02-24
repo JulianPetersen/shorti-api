@@ -12,6 +12,11 @@ export const getProducts = async (req,res) => {
     res.json(products)
 }
 
+
+
+
+
+
 export const getProductById = async (req,res) => {
     const product = await Product.findById(req.params.productId)
     res.status(200).json(product);
