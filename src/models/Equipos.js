@@ -16,9 +16,7 @@ const equipoSchema = new Schema({
 
 equipoSchema.methods.setImgUrl = function setImgUrl (filename){
     const {host, port} = appConfig
-    this.imgUrl = `${host}:${port}/public/${filename}`
+    this.imgUrl = `${host}/public/${filename}`
 }
-
-
 
 export default model('Equipo', equipoSchema)
