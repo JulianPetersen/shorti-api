@@ -33,13 +33,13 @@ app.use(cors())
 app.use('/public', express.static(`${__dirname}/storage/imgs`))
 
 
-app.get('/', (req,res)=> {
-    res.json({
-        author:'Frigg',
-        description:"API made by frigg, for shorti App.",
-        version:"1.0.3"
-    })
-})
+// app.get('/', (req,res)=> {
+//     res.json({
+//         author:'Frigg',
+//         description:"API made by frigg, for shorti App.",
+//         version:"1.0.3"
+//     })
+// })
 
 app.use(express.static(path.join(__dirname, 'client')));
 
