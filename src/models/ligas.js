@@ -18,7 +18,7 @@ const ligaSchema = new Schema({
 
 ligaSchema.methods.setImgUrl = function setImgUrl (filename){
     const {host, port} = appConfig
-    this.imgUrl = `${host}:${port}/public/${filename}`
+    this.imgUrl = `${host}/public/${filename}`
 }
 
 export default model('Liga', ligaSchema) 

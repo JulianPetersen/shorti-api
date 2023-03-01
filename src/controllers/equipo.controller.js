@@ -6,10 +6,10 @@ export const createEquipo = async (req, res) => {
         console.log(req.body)
         const { name, liga, imgUrl } = req.body
         const newEquipo = new Equipo({ name, liga, imgUrl })
-        // if (req.file) {
-        //     const { filename } = req.file;
-        //     newEquipo.setImgUrl(filename)
-        // }
+        if (req.file) {
+            const { filename } = req.file;
+            newEquipo.setImgUrl(filename)
+        }
         let ligaFound = await Liga.findById(liga)
         ligaFound.equipos.push(newEquipo._id)
         await ligaFound.save()
