@@ -21,6 +21,7 @@ import sorteoRealizadoRoutes from './routes/sorteoRealizado.routes'
 import retirosRoutes from './routes/retiros.routes'
 
 const app = express();
+var path = require('path')
 createRoles();
 mongoose.set('strictQuery', true);
 
@@ -39,6 +40,8 @@ app.get('/', (req,res)=> {
         version:"1.0.3"
     })
 })
+
+app.use(express.static(path.join(__dirname, 'client')));
 
 app.use('/api/products',productsRoutes);
 app.use('/api/auth',authRoutes);
