@@ -30,9 +30,9 @@ app.use(morgan('dev'));
 app.use(cors())
 
 //statics files
-app.use('/public', express.static(`${__dirname}/storage/imgs`))
+// app.use('/public', express.static(`${__dirname}/storage/imgs`))
 
-
+app.use('/public', express.static(path.join(__dirname, 'storage/imgs')))
 // app.get('/', (req,res)=> {
 //     res.json({
 //         author:'Frigg',
