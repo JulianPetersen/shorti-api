@@ -20,6 +20,7 @@ import infoUserRoutes from './routes/infousuario.routes'
 import premioRoutes from './routes/premio.routes'
 import sorteoRealizadoRoutes from './routes/sorteoRealizado.routes'
 import retirosRoutes from './routes/retiros.routes'
+import localNotificationRoutes from './routes/localNotification.routes'
 
 const app = express();
 var path = require('path')
@@ -55,5 +56,7 @@ app.use('/api/infouser', infoUserRoutes)
 app.use('/api/premio', premioRoutes)
 app.use('/api/sorteoRealizado', sorteoRealizadoRoutes)
 app.use('/api/retiros', retirosRoutes)
+app.use('/api/localNotification', localNotificationRoutes)
+
 
 export default app  
