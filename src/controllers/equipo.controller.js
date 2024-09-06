@@ -1,51 +1,96 @@
-import Equipo from '../models/Equipos'
-import Liga from '../models/ligas'
+import Team from '../models/Equipo'
+import appConfig from '../config';
 
-export const createEquipo = async (req, res) => {
+
+export const createTeam = async (req, res) => {
+
     try {
-        console.log(req.body)
-        const { name, liga, imgUrl } = req.body
-        const newEquipo = new Equipo({ name, liga, imgUrl })
+        const { nombreEquipo, imgUrl, puntosTorneo, cantVictorias, cantDerrotas,ligaId } = req.body
+        const newTeam = new Team({ nombreEquipo, imgUrl, puntosTorneo, cantVictorias, cantDerrotas,ligaId })
         if (req.file) {
             const { filename } = req.file;
-            newEquipo.setImgUrl(filename)
+            newTeam.setImgUrl(filename)
         }
-        let ligaFound = await Liga.findById(liga)
-        ligaFound.equipos.push(newEquipo._id)
-        await ligaFound.save()
-        const equipoSaved = await newEquipo.save();
-        res.status(201).json(equipoSaved);
+        const teamSaved = await newTeam.save();
+        res.status(201).json(teamSaved);
     } catch (error) {
-        res.status(401).json(error)
+        res.status(400).json(error)
+    }
+
+}
+
+export const getTeams = async (req, res) => { 
+    try {
+        const equipos = await Team.find()
+        .populate('ligaId')
+        res.json(equipos);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+    
+}
+
+export const getTeamById = async (req, res) => { 
+    try {
+        const team = await Team.findById(req.params.teamId)
+        .populate('ligaId')
+        res.json(team);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+    
+}
+
+export const getTeamByLigaId = async (req, res) => { 
+    try {
+        const team = await Team.find({ligaId:req.params.ligaId})
+        .populate('ligaId')
+        res.json(team);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+    
+}
+
+// export const updateTeam = async (req,res) => {
+//     const updatedTeam =  await Team.findByIdAndUpdate(req.params.teamId, req.body,{
+//         new:true
+//     })
+//     res.status(201).json({
+//         result:"ok",
+//         newTeam:updatedTeam
+//     });
+// }
+
+
+export const updateTeam = async (req,res) => {
+    try {
+        if (req.file) {
+            const { filename } = req.file;
+            const {host, port} = appConfig
+            console.log(host)
+            req.body.imgUrl =  `${host}/public/${filename}`
+        }
+        console.log(req.body)
+       
+        const updatedTeam =  await Team.findByIdAndUpdate(req.params.teamId, req.body,{
+            new:true
+        })
+        res.status(201).json({
+            result:"ok",
+            newLiga:updatedTeam
+        });
+    } catch (error) {
+        res.status(400).json(error)
     }
 }
 
-export const getEquipos = async (req, res) => { 
-    const equipos = await Equipo.find()
-    .populate("liga")
-    res.json(equipos);
-}
-
-export const getEquiposByLigas = async (req,res) => {
-    const equipos  = await Equipo.find({liga:req.params.ligaId})
-    .populate('liga')
-    res.json(equipos)
-}
-
-export const getEquipoById = async (req,res) => {
-    const equipo = await Equipo.findById(req.params.equipoId)
-    .populate("liga")
-    res.status(200).json(equipo);
-}
-
-export const updateEquipo = async (req,res) => {
-    const updatedEquipo =  await Equipo.findByIdAndUpdate(req.params.equipoId, req.body,{
-        new:true
-    })
-    res.status(204).json(updatedEquipo);
-}
-
-export const deleteEquipo = async (req,res) => {
-    const deletedEquipo =  await Equipo.findByIdAndDelete(req.params.equipoId)
-    res.status(204).json()
+export const deleteTeam = async (req,res) => {
+    try {
+        const deleteTeam = await Team.findByIdAndDelete(req.params.teamId)
+        res.status(201).json({message:'OK'})
+    } catch (error) {
+        res.status(400).json({message:error})
+    }
+    
 }

@@ -1,20 +1,24 @@
-import {Schema,model} from 'mongoose'
+import { Schema, model } from "mongoose";
 import appConfig from '../config';
 
+
 const ligaSchema = new Schema({
-    name:String,
-    imgUrl:String,
-    equipos:[{
-        type: Schema.Types.ObjectId,
-        ref: "Equipo",
-    }]
+    nombreLiga:{
+        type:String,
+        unique:true,
+    },
+    imgUrl:{
+        type:String,
+        
+    },
+    campeonLiga:{
+        type:String,
+    },
 },
 {
     timestamps:true,
     versionKey:false
 })
-
-
 
 ligaSchema.methods.setImgUrl = function setImgUrl (filename){
     const {host, port} = appConfig

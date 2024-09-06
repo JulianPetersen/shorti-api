@@ -1,19 +1,18 @@
-import {Router} from 'express'
+import { Router } from "express";
 import upload from '../middlewares/multer'
 
 const router = Router();
+import *as ligaCtrl from '../controllers/liga.controller'
+import {authJwt} from '../middlewares'
+import liga from "../models/liga";
 
-import * as ligasCtrl from '../controllers/ligas.controller'
-import { authJwt } from '../middlewares';
 
-router.post('/', [authJwt.verifyToken, authJwt.isAdmin], upload.single('imgUrl') ,ligasCtrl.createLigas);
 
-router.get('/',[authJwt.verifyToken], ligasCtrl.getLigas)
+router.post('/',[authJwt.verifyToken, authJwt.isAdmin],upload.single('imgUrl'),ligaCtrl.createLiga)
+router.get('/', [authJwt.verifyToken],ligaCtrl.getAllLigas);
+router.get('/:ligaId', [authJwt.verifyToken],ligaCtrl.getLigaById);
+router.put('/:ligaId', [authJwt.verifyToken, authJwt.isAdmin],upload.single('imgUrl'),ligaCtrl.updateLiga);
+router.delete('/:ligaId', [authJwt.verifyToken, authJwt.isAdmin],ligaCtrl.deleteLiga)
 
-router.get('/:ligaId',[authJwt.verifyToken], ligasCtrl.getLigasById)
 
-router.put('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin], ligasCtrl.updateLiga)
-
-router.delete('/:ligaId',[authJwt.verifyToken, authJwt.isAdmin] ,ligasCtrl.deleteLiga)
-
-export default router;
+export default router

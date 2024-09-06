@@ -1,23 +1,17 @@
-import {Router} from 'express'
+import { Router } from "express";
+
 
 const router = Router();
+import *as partidoCtrl from '../controllers/partido.controller'
+import {authJwt} from '../middlewares'
 
-import * as partidosCtrl from '../controllers/partido.controller'
-import { authJwt } from '../middlewares';
 
 
-router.post('/', [authJwt.verifyToken, authJwt.isAdmin],partidosCtrl.createPartido);
+router.post('/',[authJwt.verifyToken, authJwt.isAdmin],partidoCtrl.createPartido)
+router.get('/', [authJwt.verifyToken],partidoCtrl.getPartidos);
+router.get('/:partidoId', [authJwt.verifyToken],partidoCtrl.getPartidosById);
+router.put('/:partidoId', [authJwt.verifyToken, authJwt.isAdmin],partidoCtrl.updatePartido);
+router.delete('/:partidoId', [authJwt.verifyToken, authJwt.isAdmin],partidoCtrl.deletePartido)
 
-router.get('/',[authJwt.verifyToken] , partidosCtrl.getPartidos)
 
-router.get('/getlastenpartidos',[authJwt.verifyToken], partidosCtrl.getLastTenPartidos)
-
-router.get('/:partidoId',[authJwt.verifyToken], partidosCtrl.getPartidoById)
-
-router.get('/getPartidosByUser/:userId', partidosCtrl.getPartidosByUser)
-
-router.put('/:partidoId',[authJwt.verifyToken] ,partidosCtrl.updatePartido)
-
-router.delete('/:partidoId',[authJwt.verifyToken, authJwt.isAdmin] ,partidosCtrl.deletePartido)
-
-export default router;  
+export default router

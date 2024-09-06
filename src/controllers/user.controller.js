@@ -1,6 +1,5 @@
-import { config } from 'dotenv'
+
 import User from '../models/User'
-import {transporter} from '../config';
 
 const nodemailer = require ('nodemailer')
 
@@ -18,24 +17,6 @@ export const getUsers = async (req,res) => {
     res.status(200).json(user)
 }
 
-export const updatePassword = async (req,res) => {
-    
-    const userFind = await User.findOne({email:req.body.email})
-    console.log(userFind)
-    let newPass = generateRandomString(10).trim()
-    console.log(newPass.trim())
-    let encryptPass = await User.encryptPassword(newPass)
-    console.log(encryptPass)
-    await User.updateOne({email:req.body.email}, {password:encryptPass})
-    await transporter.sendMail({
-        from: 'Recupera tu constraseña <contacto@friggdd.site>',
-        to: userFind.email,
-        subject: 'Recupera tu constraseña Shorti',
-        html: `<b> Tu Nueva contraseña es: ${newPass} Logueate y cambiala desde la seccion de mi perfil dentro de la app.</b>`
-    })
-    res.status(200).json({success: userFind.email})
-     
-}
 
 
 export const changePassword = async (req,res) => {

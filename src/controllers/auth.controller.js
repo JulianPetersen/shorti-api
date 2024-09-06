@@ -2,7 +2,7 @@ import User from '../models/User'
 import jwt from 'jsonwebtoken'
 import config from '../config'
 import Role from '../models/Role'
-import InfoUsuario from '../models/infoUsuario'
+
 
 export const signUp = async (req,res) => {
     const { username,email,password,roles} = req.body;
@@ -24,13 +24,6 @@ export const signUp = async (req,res) => {
     }
    const savedUser = await newUser.save();
 
-   let idUser = savedUser._id 
-   const newInfoUser = new InfoUsuario({
-       usuario:idUser,
-       puntosObtenidos:0
-   })
-   await newInfoUser.save();
-
    const token = jwt.sign({id:savedUser._id},config.SECRET,{
     
    })
@@ -49,11 +42,9 @@ export const signIn = async (req,res) => {
     
     if(!matchPassword) return res.status(401).json({token: null, message:'Invalid Password'})
 
-    const infoUsuario = await InfoUsuario.findOne({usuario:userFound._id})
-
    const token = jwt.sign({id:userFound._id}, config.SECRET, {
         
     })
     console.log(userFound)
-    res.json({token:token,userId:userFound._id,username:userFound.username, infouser:infoUsuario})
+    res.json({token:token})
 }

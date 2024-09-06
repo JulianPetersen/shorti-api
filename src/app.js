@@ -9,17 +9,13 @@ import cors from 'cors';
 
 
 //routes
-import productsRoutes from './routes/products.routes'
+
 import authRoutes from './routes/auth.routes'
 import userRoutes from './routes/user.routes'
-import equiposRoutes from './routes/equipos.routes'
-import ligasRoutes from './routes/ligas.routes'
-import partidosRoutes from './routes/partidos.routes'
-import pronosticosRoutes from './routes/pronosticos.routes'
-import infoUserRoutes from './routes/infousuario.routes'
-import premioRoutes from './routes/premio.routes'
-import sorteoRealizadoRoutes from './routes/sorteoRealizado.routes'
-import retirosRoutes from './routes/retiros.routes'
+import teamRoutes from './routes/equipo.routes'
+import partidoRoutes from './routes/partidos.routes'
+import ligaRoutes from './routes/ligas.routes'
+import fechasRoutes from './routes/fechas.routes'
 
 const app = express();
 var path = require('path')
@@ -44,16 +40,13 @@ app.use('/public', express.static(path.join(__dirname, 'storage/imgs')))
 
 app.use(express.static(path.join(__dirname, 'client')));
 
-app.use('/api/products',productsRoutes);
+
 app.use('/api/auth',authRoutes);
 app.use('/api/users',userRoutes);
-app.use('/api/equipos', equiposRoutes)
-app.use('/api/ligas', ligasRoutes)
-app.use('/api/partidos', partidosRoutes)
-app.use('/api/pronosticos', pronosticosRoutes)
-app.use('/api/infouser', infoUserRoutes)
-app.use('/api/premio', premioRoutes)
-app.use('/api/sorteoRealizado', sorteoRealizadoRoutes)
-app.use('/api/retiros', retirosRoutes)
+app.use('/api/teams', teamRoutes)
+app.use('/api/partidos', partidoRoutes)
+app.use('/api/ligas', ligaRoutes)
+app.use('/api/fechas',fechasRoutes)
+
 
 export default app  

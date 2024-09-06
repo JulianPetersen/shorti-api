@@ -1,26 +1,50 @@
-import {Schema,model} from 'mongoose'
+import { Schema, model } from "mongoose";
+
+
 
 const partidoSchema = new Schema({
-    fecha: String,
-    horario:String,
-    equipo1:{
+    equipoLocal:{
         ref: "Equipo",
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        require:true
     },
-    equipo2:{
+    equipoVisitante:{
         ref: "Equipo",
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        require:true
     },
-    resultado: Object,
-    estado:String,
-    usuarios:[{
-        ref: "User",
-        type: Schema.Types.ObjectId
-    }]
+    ganador:{
+        ref: "Equipo",
+        type: Schema.Types.ObjectId,
+        default:null
+    },
+    perdedor:{
+        ref: "Equipo",
+        type: Schema.Types.ObjectId,
+        default:null
+    },
+    empate:{
+        type:Boolean,
+        default:false
+    },
+    fechaPartido:{
+        type:String,
+        require:true
+    },
+    HoraPartido:{
+        type:String,
+        require:true
+    },
+    fechaId:{
+        ref: "Fecha",
+        type: Schema.Types.ObjectId,
+        default:null
+    },
 },
 {
     timestamps:true,
     versionKey:false
 })
 
-export default model('Partido', partidoSchema)
+
+export default model('Partido', partidoSchema) 

@@ -22,7 +22,7 @@ export const checkRoleExisted = (req,res,next) => {
                     message: `Role ${req.body.roles[i]} does not exists`
                 })
             }
-        }
+        } 
     }
 
     next();
