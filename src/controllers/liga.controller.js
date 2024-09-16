@@ -1,5 +1,7 @@
 import Liga from '../models/liga'
+import Team from '../models/Equipo'
 import appConfig from '../config';
+import Equipo from '../models/Equipo';
 
 export const createLiga = async (req, res) => {
 
@@ -63,6 +65,7 @@ export const updateLiga = async (req,res) => {
 
 export const deleteLiga = async (req,res) => {
     try {
+        const deletedTeam = await Equipo.deleteMany({ligaId:req.params.ligaId})
         const deleteLiga = await Liga.findByIdAndDelete(req.params.ligaId)
         res.status(201).json({message:'OK'})
     } catch (error) {
